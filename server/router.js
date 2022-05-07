@@ -1,8 +1,7 @@
 const router = require('koa-router')()
+const qrController = require('./controller/qr')
 router.prefix('/api')
 
-router.get('/', async (ctx, next) => {
-  ctx.body = 'HelloWorld'
-})
+router.post('/qr/create', qrController.create)
 
 module.exports = router

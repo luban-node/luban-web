@@ -9,7 +9,14 @@ export default new Router({
     {
       name: 'index',
       path: '/',
-      component: () => import('../views/index.vue')
+      component: () => import('../views/index.vue'),
+      children: [
+        {
+          name: 'qr',
+          path: '/qr',
+          component: () => import('../views/qr.vue')
+        }
+      ]
     }
   ]
 })

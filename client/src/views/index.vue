@@ -2,18 +2,17 @@
   <div class="container">
     <el-container>
       <el-header class="header">
-        <div class="container" />
+        <div class="container">
+          <h1>Luban</h1>
+        </div>
       </el-header>
       <el-container class="container">
         <el-aside width="200px">
           <el-scrollbar>
             <div class="side-nav">
-              <ul>
+              <ul style="margin-top:50px">
                 <li class="nav-item">
-                  <a href="#">选项1</a>
-                </li>
-                <li class="nav-item">
-                  <a href="#">选项2</a>
+                  <a href="/qr">生成二维码</a>
                 </li>
               </ul>
             </div>
@@ -29,7 +28,9 @@
 
 <script>
 export default {
-
+  created () {
+    this.$router.push('/qr')
+  }
 }
 </script>
 
@@ -37,7 +38,7 @@ export default {
 .header{
     height: 80px;
     background-color: #fff;
-    color: #fff;
+    color: #409eff;
     top: 0;
     left: 0;
     width: 100%;
