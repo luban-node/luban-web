@@ -15,6 +15,11 @@ export default new Router({
           name: 'qr',
           path: '/qr',
           component: () => import('../views/qr.vue')
+        },
+        {
+          name: 'dy_wm',
+          path: '/dy/wm',
+          component: () => import('../views/dy_wm.vue')
         }
       ]
     }

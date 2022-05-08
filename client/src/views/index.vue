@@ -14,6 +14,9 @@
                 <li class="nav-item">
                   <a href="/qr">生成二维码</a>
                 </li>
+                <li class="nav-item">
+                  <a href="/dy/wm">抖音去水印</a>
+                </li>
               </ul>
             </div>
           </el-scrollbar>
@@ -29,7 +32,9 @@
 <script>
 export default {
   created () {
-    this.$router.push('/qr')
+    if (this.$route.path === '/') {
+      this.$router.push('/qr')
+    }
   }
 }
 </script>

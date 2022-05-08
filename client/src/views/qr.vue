@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="margin-top:30x">
+    <div style="margin-top:30px">
       <el-form
         ref="form"
         :model="form"

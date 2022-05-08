@@ -36,4 +36,12 @@ function qrCreate (data) {
   })
 }
 
-export { qrCreate }
+function dyWm (data) {
+  return instance({
+    url: '/wm/dy',
+    method: 'POST',
+    data
+  })
+}
+
+export { qrCreate, dyWm }
