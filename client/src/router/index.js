@@ -20,6 +20,10 @@ export default new Router({
           name: 'dy_wm',
           path: '/dy/wm',
           component: () => import('../views/dy_wm.vue')
+        }, {
+          name: 'ocr',
+          path: '/ocr',
+          component: () => import('../views/ocr')
         }
       ]
     }

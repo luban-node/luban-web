@@ -17,6 +17,9 @@
                 <li class="nav-item">
                   <a href="/dy/wm">抖音去水印</a>
                 </li>
+                <li class="nav-item">
+                  <a href="/ocr">文字识别(OCR)</a>
+                </li>
               </ul>
             </div>
           </el-scrollbar>

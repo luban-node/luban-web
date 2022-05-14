@@ -8,12 +8,14 @@ const path = require('path')
 const router = require('./router')
 const errCode = require('./lib/errCode')
 const comResp = require('./middlware/comResp')
+const ocrScheduler = require('./lib/ocrScheduler')
 
 // error handler
 onerror(app)
 
 // lib
 app.context.errCode = errCode
+app.context.ocrScheduler = ocrScheduler
 
 // middlewares
 app.use(bodyparser({ enableTypes: ['json', 'form', 'text'] }))

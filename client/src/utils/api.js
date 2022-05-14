@@ -44,4 +44,20 @@ function dyWm (data) {
   })
 }
 
-export { qrCreate, dyWm }
+function uploadImage (data) {
+  return instance({
+    url: '/upload/image',
+    method: 'POST',
+    data
+  })
+}
+
+function ocr (data) {
+  return instance({
+    url: '/ocr',
+    method: 'POST',
+    data
+  })
+}
+
+export { qrCreate, dyWm, uploadImage, ocr }
