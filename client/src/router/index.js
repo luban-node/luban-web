@@ -12,18 +12,23 @@ export default new Router({
       component: () => import('../views/index.vue'),
       children: [
         {
-          name: 'qr',
-          path: '/qr',
-          component: () => import('../views/qr.vue')
-        },
-        {
-          name: 'dy_wm',
-          path: '/dy/wm',
-          component: () => import('../views/dy_wm.vue')
-        }, {
-          name: 'ocr',
-          path: '/ocr',
-          component: () => import('../views/ocr')
+          name: 'tool',
+          path: '/tool',
+          component: () => import('../views/tool'),
+          children: [{
+            name: 'qr',
+            path: 'qr',
+            component: () => import('../views/qr.vue')
+          },
+          {
+            name: 'dy_wm',
+            path: 'dy/wm',
+            component: () => import('../views/dy_wm.vue')
+          }, {
+            name: 'ocr',
+            path: 'ocr',
+            component: () => import('../views/ocr')
+          }]
         }
       ]
     }
