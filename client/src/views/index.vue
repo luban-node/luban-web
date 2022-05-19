@@ -28,6 +28,10 @@
           <router-view />
         </el-main>
       </el-container>
+      <el-footer class="footer">
+        <el-link href="https://github.com/Selenium39" target="_blank" type="info" :underline="false">© {{new Date().getFullYear()}} Selenium39</el-link>
+        <el-link href="https://beian.miit.gov.cn/" target="_blank" type="info" :underline="false">湘ICP备2021019331号</el-link>
+      </el-footer>
     </el-container>
   </div>
 </template>
@@ -98,5 +102,14 @@ export default {
 }
 
 li{ list-style: none}
+
 a{text-decoration:none}
+
+.footer{
+  height:50px;
+  width: 80%;
+  text-align: center;
+  position: fixed;
+  bottom: 0px;
+}
 </style>>
