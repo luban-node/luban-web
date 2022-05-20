@@ -1,6 +1,6 @@
 class Util {
    static  getClientIp(ctx){
-       const forwardedIp = ctx.ips[ctx.ips.length-1]
+       const forwardedIp = ctx.ips[0]
        const req = ctx.req
        const ip = forwardedIp ||
        req.connection.remoteAddress ||
