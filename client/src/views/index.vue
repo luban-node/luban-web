@@ -16,9 +16,9 @@ import Footer from '@/components/footer'
 export default {
     components: { Header,Footer },
     created() {
-        // if (this.$route.path === "/") {
-        //     this.$router.push("/qr");
-        // }
+        if (this.$route.path === "/") {
+            this.$router.push("/tool/qr");
+        }
     },
 };
 </script>
