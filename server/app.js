@@ -1,5 +1,4 @@
 const Koa = require('koa')
-const app = new Koa()
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
@@ -9,6 +8,12 @@ const router = require('./router')
 const errCode = require('./lib/errCode')
 const comResp = require('./middlware/comResp')
 const ocrScheduler = require('./lib/ocrScheduler')
+const Util = require('./lib/util')
+
+const app = new Koa({
+  proxy: true,
+  maxIpsCount: 1, // 服务器前只有一个代理
+})
 
 // error handler
 onerror(app)
@@ -29,7 +34,7 @@ app.use(async (ctx, next) => {
   const start = new Date()
   await next()
   const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  console.log(`${Util.getClientIp(ctx)} ${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
 // routes
