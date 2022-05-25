@@ -30,6 +30,7 @@ router.post('/upload/image', upload.single('image'), uploadController.image)
 router.post('/ocr', ocrController.ocr)
 router.post('/register',userController.register)
 router.post('/login',userController.login)
+router.post('/loginCallback',userController.loginCallback)
 router.post('/logout',userController.logout)
 
 module.exports = router

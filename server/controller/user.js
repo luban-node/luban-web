@@ -3,7 +3,9 @@ const validator = require('validator')
 const User = require('../db/mysql/model/user')
 const { Op } = require("sequelize");
 const Util = require('../lib/util')
-const jwt = require('../lib/jwt')
+const jwt = require('../lib/jwt');
+const { weiboConfig } = require('../config');
+const got = require('got')
 
 class UserController {
    async register(ctx) {
@@ -54,11 +56,30 @@ class UserController {
       const userPassword = Util.md5(`${password}${user.salt}`)
       if (userPassword !== user.password) return ctx.error(errCode.PARAMS_ERROR, '密码错误')
       // 登录成功,创建token
-      const token =  await jwt.createToken(user.toJSON())
-      return ctx.success({ nickname: user.nickname, avatar: user.avatar,token})
+      const token = await jwt.createToken(user.toJSON())
+      return ctx.success({ nickname: user.nickname, avatar: user.avatar, token })
    }
 
-   async logout(ctx){
+   async loginCallback(ctx) {
+      let { code } = ctx.request.body
+      if (!code) {
+         return ctx.error(errCode.PARAMS_ERROR, '参数错误')
+      }
+      const { access_token, uid } = await got.post('https://api.weibo.com/oauth2/access_token', {
+         form: {
+            client_id: weiboConfig.appKey,
+            client_secret: weiboConfig.appSecret,
+            grant_type: 'authorization_code',
+            redirect_uri: weiboConfig.redirectUrl,
+            code
+         }
+      }).json()
+      const userInfo = await got.get(`https://api.weibo.com/2/users/show.json?access_token=${access_token}&uid=${uid}`).json()
+      console.log(userInfo)
+      return ctx.success()
+   }
+
+   async logout(ctx) {
       const token = ctx.state.token
       await jwt.removeToken(token)
       return ctx.success()
