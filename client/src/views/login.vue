@@ -3,14 +3,16 @@
     <div class="login-main">
       <div class="login-info">
         <div class="login-tabs">
-          <div class="login-pane cur-pointer active">
+          <div @click="toAcctLogin" class="login-pane cur-pointer active">
             {{ isLogin ? "账号登录" : "账号注册" }}
           </div>
           <div class="login-paneDrive"></div>
-          <div class="login-pane cur-pointer">微博登录</div>
+          <div @click="toWeiboLogin" class="login-pane cur-pointer">
+            微博登录
+          </div>
         </div>
         <div class="login-form">
-          <el-form :rules="rules" ref="form" :model="form">
+          <el-form v-if="isAcctLogin" :rules="rules" ref="form" :model="form">
             <el-form-item prop="email">
               <el-input
                 v-model="form.email"
@@ -79,6 +81,16 @@
               </el-form-item>
             </div>
           </el-form>
+          <div v-else style="text-align: center">
+            <el-image
+              src="https://api.weibo.com/oauth2/qrcode_authorize/show?vcode=5fc0383921b7fba4e75e56801907417b&qr_url=https%3A%2F%2Fopen.weibo.cn%2Foauth2%2Fqrcode_authorize%3Fclient_id%3D3359969474%26redirect_uri%3Dhttp%253A%252F%252F127.0.0.1%253A8080%252Flogin%26scope%3D%26response_type%3Dcode%26state%3D%26vcode%3D5fc0383921b7fba4e75e56801907417b"
+            ></el-image>
+            <div style="margin-top:10px">
+              <el-button type="warning"
+                ><i class="iconfont icon-weibo"></i>使用微博登录</el-button
+              >
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -87,7 +99,7 @@
 </template>
 
 <script>
-import { register, login } from "../utils/api";
+import { register, login, loginCallback, loadWeiboQr } from "../utils/api";
 import { mapMutations } from "vuex";
 export default {
   data() {
@@ -103,6 +115,7 @@ export default {
     };
     return {
       isLogin: true,
+      isAcctLogin: true,
       form: {
         email: "",
         nickname: "",
@@ -128,6 +141,7 @@ export default {
         ],
         nickname: [{ validator: checkNickname, trigger: "blur" }],
       },
+      weiboUrl: "",
     };
   },
   methods: {
@@ -137,6 +151,15 @@ export default {
     },
     toLogin() {
       this.isLogin = true;
+    },
+    toWeiboLogin() {
+      this.isAcctLogin = false;
+      loadWeiboQr().then((res) => {
+        console.log(res);
+      });
+    },
+    toAcctLogin() {
+      this.isAcctLogin = true;
     },
     doRegister() {
       this.$refs["form"].validate((valid) => {
@@ -188,6 +211,12 @@ export default {
     isLogin: function (oldValue, newValue) {
       this.$refs["form"].clearValidate();
     },
+  },
+  created() {
+    const { code } = this.$route.query;
+    if (code) {
+      loginCallback({ code });
+    }
   },
 };
 </script>

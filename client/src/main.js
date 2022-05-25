@@ -7,6 +7,7 @@ import VueCropper from 'vue-cropper'
 import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import store from './vuex/store'
+import './assets/iconfont/iconfont.css'
 
 Vue.config.productionTip = false
 

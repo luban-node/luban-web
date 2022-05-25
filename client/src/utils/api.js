@@ -85,4 +85,19 @@ function logout(){
   })
 }
 
-export { qrCreate, dyWm, uploadImage, ocr, register, login,logout }
+function loginCallback(data){
+  return instance({
+    url:'loginCallback',
+    method:'POST',
+    data
+  })
+}
+
+function loadWeiboQr(){
+  return instance({
+    url:`https://api.weibo.com/oauth2/qrcode_authorize/generate?client_id=3359969474&redirect_uri=http://127.0.0.1:8080/login&scope=&response_type=code&state=&__rnd=${Date.now()}`,
+    method:'GET'
+  })
+}
+
+export { qrCreate, dyWm, uploadImage, ocr, register, login,logout,loginCallback,loadWeiboQr }
