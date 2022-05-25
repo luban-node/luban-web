@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       form: {
-        url: "6.10 IVy:/ 没有 %%迎新日的青春感穿搭 %%宅家照样变好看 %%livephoto  https://v.douyin.com/FAGeRdf/ 复制此链接，打开Dou音搜索，直接观看视频！",
+        url: "8.25 CHI:/ look 别发呆 %看我造型say哇塞  https://v.douyin.com/Fpv7GVp/ 复制此链接，打开Dou音搜索，直接观看视频！",
       },
       noWmUrl: "",
     };
