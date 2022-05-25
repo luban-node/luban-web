@@ -54,7 +54,7 @@
       </div>
     </div>
     <div style="margin-top: 10px">
-      <el-button size="small" type="primary" style="width: 60%" @click="doOcr">
+      <el-button   size="small" type="primary" style="width: 60%" @click="doOcr">
         文字识别(OCR)
       </el-button>
     </div>

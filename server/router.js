@@ -4,6 +4,7 @@ const qrController = require('./controller/qr')
 const wmController = require('./controller/wm')
 const uploadController = require('./controller/upload')
 const ocrController = require('./controller/ocr')
+const userController = require('./controller/user')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -27,5 +28,8 @@ router.post('/qr/create', qrController.create)
 router.post('/wm/dy', wmController.dy)
 router.post('/upload/image', upload.single('image'), uploadController.image)
 router.post('/ocr', ocrController.ocr)
+router.post('/register',userController.register)
+router.post('/login',userController.login)
+router.post('/logout',userController.logout)
 
 module.exports = router

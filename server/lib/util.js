@@ -1,3 +1,5 @@
+const crypto = require('crypto')
+
 class Util {
    static  getClientIp(ctx){
        const forwardedIp = ctx.ips[0]
@@ -8,6 +10,10 @@ class Util {
        req.connection.socket.remoteAddress
        ctx.__ip= ip&&ip.replace('::ffff:','')
        return ctx.__ip
+   }
+
+   static md5(item){
+      return crypto.createHash('md5').update(item).digest('hex')
    }
 }
 

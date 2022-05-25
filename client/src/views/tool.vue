@@ -19,7 +19,7 @@
           </ul>
         </div>
         <div class="page-component__content">
-          <div class="content content">
+          <div class="content">
             <router-view />
           </div>
         </div>

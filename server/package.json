@@ -12,6 +12,8 @@
     "@koa/multer": "^3.0.0",
     "debug": "^4.1.1",
     "got": "^11.0.0",
+    "ioredis": "^5.0.5",
+    "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
     "koa-convert": "^1.2.0",
@@ -20,10 +22,15 @@
     "koa-onerror": "^4.1.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
+    "koa-unless": "^1.0.7",
     "multer": "^1.4.4",
+    "mysql2": "^2.3.3",
     "qrcode": "^1.5.0",
+    "sequelize": "^6.19.2",
     "tesseract.js": "^2.0.0-beta.1",
-    "tesseract.js-core": "^2.0.0-beta.13"
+    "tesseract.js-core": "^2.0.0-beta.13",
+    "uuid": "^8.3.2",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

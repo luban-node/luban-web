@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div id="index">
-      <Header />
-      <div class="main-cnt">
-        <router-view />
-      </div>
-      <Footer />
+  <div id="index">
+    <Header />
+    <div class="main-cnt">
+      <router-view />
     </div>
+    <Footer />
   </div>
 </template>
 
@@ -24,6 +22,10 @@ export default {
 </script>
 
 <style>
+#index {
+  height: 100%;
+}
+
 #index .main-cnt {
   padding: 0;
   margin-top: 0;

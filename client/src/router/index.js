@@ -29,6 +29,10 @@ export default new Router({
             path: 'ocr',
             component: () => import('../views/ocr')
           }]
+        },{
+          name:'login',
+          path:'/login',
+          component:()=>import('../views/login')
         }
       ]
     }

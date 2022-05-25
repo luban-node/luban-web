@@ -1,10 +1,12 @@
 import axios from 'axios'
+import store from '../vuex/store'
 
 const instance = axios.create({
   baseURL: process.env.API_BASE_URL,
   timeout: 60 * 1000,
   headers: {
-    'Content-Type': 'application/json;charset=utf-8'
+    'Content-Type': 'application/json;charset=utf-8',
+    'Authorization': store.getters.user ? 'Bearer ' + store.getters.user.token : ''
   }
 })
 
@@ -16,19 +18,19 @@ instance.interceptors.response.use(res => {
     case 500:
       break
     default:
-    {
-      const { code, msg, data } = res.data
-      if (code !== 0) {
-        return Promise.reject(msg)
+      {
+        const { code, msg, data } = res.data
+        if (code !== 0) {
+          return Promise.reject(msg)
+        }
+        return Promise.resolve(data)
       }
-      return Promise.resolve(data)
-    }
   }
 }, error => {
   return Promise.reject(error)
 })
 
-function qrCreate (data) {
+function qrCreate(data) {
   return instance({
     url: '/qr/create',
     method: 'POST',
@@ -36,7 +38,7 @@ function qrCreate (data) {
   })
 }
 
-function dyWm (data) {
+function dyWm(data) {
   return instance({
     url: '/wm/dy',
     method: 'POST',
@@ -44,7 +46,7 @@ function dyWm (data) {
   })
 }
 
-function uploadImage (data) {
+function uploadImage(data) {
   return instance({
     url: '/upload/image',
     method: 'POST',
@@ -52,7 +54,7 @@ function uploadImage (data) {
   })
 }
 
-function ocr (data) {
+function ocr(data) {
   return instance({
     url: '/ocr',
     method: 'POST',
@@ -60,4 +62,27 @@ function ocr (data) {
   })
 }
 
-export { qrCreate, dyWm, uploadImage, ocr }
+function register(data) {
+  return instance({
+    url: '/register',
+    method: 'POST',
+    data
+  })
+}
+
+function login(data) {
+  return instance({
+    url: '/login',
+    method: 'POST',
+    data
+  })
+}
+
+function logout(){
+  return instance({
+    url:'logout',
+    method:'POST'
+  })
+}
+
+export { qrCreate, dyWm, uploadImage, ocr, register, login,logout }
