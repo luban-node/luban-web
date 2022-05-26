@@ -1,10 +1,11 @@
 const errCode = require('../lib/errCode')
 const validator = require('validator')
 const User = require('../db/mysql/model/user')
-const { Op } = require("sequelize");
+const WeiboUser = require('../db/mysql/model/weiboUser')
+const { Op } = require("sequelize")
 const Util = require('../lib/util')
 const jwt = require('../lib/jwt');
-const { weiboConfig } = require('../config');
+const { weiboConfig } = require('../config')
 const got = require('got')
 
 class UserController {
@@ -60,6 +61,11 @@ class UserController {
       return ctx.success({ nickname: user.nickname, avatar: user.avatar, token })
    }
 
+   async getWeiboLoginUrl(ctx) {
+      const weiboUrl = `https://api.weibo.com/oauth2/authorize?client_id=${weiboConfig.appKey}&response_type=code&redirect_uri=${weiboConfig.redirectUrl}`
+      ctx.success({ weiboUrl })
+   }
+
    async loginCallback(ctx) {
       let { code } = ctx.request.body
       if (!code) {
@@ -74,9 +80,10 @@ class UserController {
             code
          }
       }).json()
-      const userInfo = await got.get(`https://api.weibo.com/2/users/show.json?access_token=${access_token}&uid=${uid}`).json()
-      console.log(userInfo)
-      return ctx.success()
+      const { idstr: id, name: nickname, avatar_hd: avatar } = await got.get(`https://api.weibo.com/2/users/show.json?access_token=${access_token}&uid=${uid}`).json()
+      let [user,isCreate] = await WeiboUser.upsert({ id, nickname, avatar })
+      const token = await jwt.createToken(user.toJSON())
+      return ctx.success({ nickname,avatar ,token })
    }
 
    async logout(ctx) {
