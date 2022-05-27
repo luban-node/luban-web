@@ -78,26 +78,41 @@ function login(data) {
   })
 }
 
-function logout(){
+function logout() {
   return instance({
-    url:'logout',
-    method:'POST'
+    url: 'logout',
+    method: 'POST'
   })
 }
 
-function loginCallback(data){
+function loginCallback(data) {
   return instance({
-    url:'loginCallback',
-    method:'POST',
+    url: 'loginCallback',
+    method: 'POST',
     data
   })
 }
 
-function loadWeiboQr(){
+function loadWeiboQr() {
   return instance({
-    url:`https://api.weibo.com/oauth2/qrcode_authorize/generate?client_id=3359969474&redirect_uri=http://127.0.0.1:8080/login&scope=&response_type=code&state=&__rnd=${Date.now()}`,
-    method:'GET'
+    url: '/weibo/loginQr',
+    method: 'GET'
   })
 }
 
-export { qrCreate, dyWm, uploadImage, ocr, register, login,logout,loginCallback,loadWeiboQr }
+function loadWeiboUrl() {
+  return instance({
+    url: 'weibo/loginUrl',
+    method: 'GET'
+  })
+}
+
+function getWeiboLoginQrStatus(data) {
+  return instance({
+    url: '/weibo/loginQrStatus',
+    method: 'GET',
+    params: data
+  })
+}
+
+export { qrCreate, dyWm, uploadImage, ocr, register, login, logout, loginCallback, loadWeiboQr, loadWeiboUrl,getWeiboLoginQrStatus }

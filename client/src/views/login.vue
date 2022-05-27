@@ -82,12 +82,12 @@
             </div>
           </el-form>
           <div v-else style="text-align: center">
-            <el-image
-              src="https://api.weibo.com/oauth2/qrcode_authorize/show?vcode=5fc0383921b7fba4e75e56801907417b&qr_url=https%3A%2F%2Fopen.weibo.cn%2Foauth2%2Fqrcode_authorize%3Fclient_id%3D3359969474%26redirect_uri%3Dhttp%253A%252F%252F127.0.0.1%253A8080%252Flogin%26scope%3D%26response_type%3Dcode%26state%3D%26vcode%3D5fc0383921b7fba4e75e56801907417b"
-            ></el-image>
-            <div style="margin-top:10px">
-              <el-button type="warning"
-                ><i class="iconfont icon-weibo"></i>使用微博登录</el-button
+            <el-image :src="weiboQrUrl"></el-image>
+            <div style="margin-top: 10px">
+              <a :href="weiboUrl">
+                <el-button type="warning"
+                  ><i class="iconfont icon-weibo"></i>使用微博登录</el-button
+                ></a
               >
             </div>
           </div>
@@ -99,7 +99,14 @@
 </template>
 
 <script>
-import { register, login, loginCallback, loadWeiboQr } from "../utils/api";
+import {
+  register,
+  login,
+  loginCallback,
+  loadWeiboQr,
+  loadWeiboUrl,
+  getWeiboLoginQrStatus,
+} from "../utils/api";
 import { mapMutations } from "vuex";
 export default {
   data() {
@@ -142,6 +149,7 @@ export default {
         nickname: [{ validator: checkNickname, trigger: "blur" }],
       },
       weiboUrl: "",
+      weiboQrUrl: "",
     };
   },
   methods: {
@@ -153,10 +161,23 @@ export default {
       this.isLogin = true;
     },
     toWeiboLogin() {
-      this.isAcctLogin = false;
-      loadWeiboQr().then((res) => {
-        console.log(res);
+      loadWeiboUrl().then((res) => {
+        this.weiboUrl = res.weiboUrl;
       });
+      loadWeiboQr().then((res) => {
+        const { weiboQrUrl, vcode } = res;
+        this.weiboQrUrl = weiboQrUrl;
+        const id = setInterval(() => {
+          getWeiboLoginQrStatus({ vcode }).then((res) => {
+            const { status, url } = res;
+            if (status === "3") {
+              window.location = url;
+              clearInterval(id);
+            }
+          });
+        }, 3000);
+      });
+      this.isAcctLogin = false;
     },
     toAcctLogin() {
       this.isAcctLogin = true;
@@ -215,7 +236,14 @@ export default {
   created() {
     const { code } = this.$route.query;
     if (code) {
-      loginCallback({ code });
+      loginCallback({ code }).then((res) => {
+        this.$message({
+          message: `${res.nickname} 欢迎您`,
+          type: "success",
+        });
+        this.setUser(res);
+        this.$router.push("/tool/qr");
+      });
     }
   },
 };

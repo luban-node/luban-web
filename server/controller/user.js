@@ -63,7 +63,24 @@ class UserController {
 
    async getWeiboLoginUrl(ctx) {
       const weiboUrl = `https://api.weibo.com/oauth2/authorize?client_id=${weiboConfig.appKey}&response_type=code&redirect_uri=${weiboConfig.redirectUrl}`
-      ctx.success({ weiboUrl })
+      return ctx.success({ weiboUrl })
+   }
+
+
+   async getWeiboLoginQr(ctx) {
+      const qrApi = `https://api.weibo.com/oauth2/qrcode_authorize/generate?client_id=${weiboConfig.appKey}&redirect_uri=${weiboConfig.redirectUrl}&scope=&response_type=code&state=&__rnd=${Date.now()}`
+      const { url, vcode } = await got.get(qrApi).json()
+      return ctx.success({ weiboQrUrl: url, vcode })
+   }
+
+   async getWeiboLoginQrStatus(ctx) {
+      const { vcode } = ctx.request.query
+      if (!vcode) {
+         return ctx.error(errCode.PARAMS_ERROR, '参数错误')
+      }
+      const queryQrApi = `https://api.weibo.com/oauth2/qrcode_authorize/query?vcode=${vcode}&__rnd=${Date.now()}`
+      const { status, url } = await got(queryQrApi).json()
+      return ctx.success({ status, url })
    }
 
    async loginCallback(ctx) {
@@ -81,9 +98,9 @@ class UserController {
          }
       }).json()
       const { idstr: id, name: nickname, avatar_hd: avatar } = await got.get(`https://api.weibo.com/2/users/show.json?access_token=${access_token}&uid=${uid}`).json()
-      let [user,isCreate] = await WeiboUser.upsert({ id, nickname, avatar })
+      let [user, isCreate] = await WeiboUser.upsert({ id, nickname, avatar })
       const token = await jwt.createToken(user.toJSON())
-      return ctx.success({ nickname,avatar ,token })
+      return ctx.success({ nickname, avatar, token })
    }
 
    async logout(ctx) {

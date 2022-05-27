@@ -33,5 +33,7 @@ router.post('/login',userController.login)
 router.post('/loginCallback',userController.loginCallback)
 router.post('/logout',userController.logout)
 router.get('/weibo/loginUrl',userController.getWeiboLoginUrl)
+router.get('/weibo/loginQr',userController.getWeiboLoginQr)
+router.get('/weibo/loginQrStatus',userController.getWeiboLoginQrStatus)
 
 module.exports = router
