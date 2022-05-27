@@ -31,12 +31,7 @@ export default {
   margin-top: 0;
   height: 100%;
   min-height: auto;
-}
-
-.main-cnt {
-  margin-top: -80px;
-  padding: 80px 0 340px;
   box-sizing: border-box;
-  min-height: 100%;
+  overflow-y: scroll;
 }
 </style>>
