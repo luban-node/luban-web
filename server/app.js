@@ -13,6 +13,7 @@ const jwt = require('./lib/jwt')
 const auth = require('./middlware/auth')
 const {noLoginApi} = require('./config')
 const redis = require('./db/redis')
+var cors = require('koa-cors');
 
 const app = new Koa({
   proxy: true,
@@ -31,6 +32,7 @@ app.context.ocrScheduler = ocrScheduler
 // middlewares
 app.use(bodyparser({ enableTypes: ['json', 'form', 'text'] }))
 app.use(json())
+app.use(cors());
 app.use(logger())
 app.use(require('koa-static')(path.join(__dirname, '/public')))
 app.use(comResp())
