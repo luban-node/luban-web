@@ -200,12 +200,6 @@ export default {
               });
               this.isLogin = true;
             })
-            .catch((error) => {
-              this.$message({
-                message: error,
-                type: "warning",
-              });
-            });
         } else {
           return false;
         }
@@ -223,12 +217,6 @@ export default {
               this.setUser(res);
               this.$router.push("/tool/qr");
             })
-            .catch((error) => {
-              this.$message({
-                message: error,
-                type: "warning",
-              });
-            });
         } else {
           return false;
         }
