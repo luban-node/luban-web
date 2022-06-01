@@ -1,10 +1,13 @@
 const { Sequelize } = require('sequelize');
 const { mysqlConfig } = require('../../config')
+const isDev = process.env.NODE_ENV === 'development'
+
 const sequelize = new Sequelize(mysqlConfig.url, {
   pool: mysqlConfig.pool, dialectOptions: {
     dateStrings: true,
     typeCast: true
-  }, timezone: '+08:00'
+  }, timezone: '+08:00',
+  logging: false
 });
 
 ; (async () => {
