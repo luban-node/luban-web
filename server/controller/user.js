@@ -57,7 +57,7 @@ class UserController {
       const userPassword = Util.md5(`${password}${user.salt}`)
       if (userPassword !== user.password) return ctx.error(errCode.PARAMS_ERROR, '密码错误')
       // 登录成功,创建token
-      const token = await jwt.createToken(user.toJSON())
+      const token = await jwt.createToken({ ...user.toJSON(), userType: 'user' })
       return ctx.success({ nickname: user.nickname, avatar: user.avatar, token })
    }
 
@@ -97,9 +97,9 @@ class UserController {
             code
          }
       }).json()
-      const { idstr: id, name: nickname, avatar_hd: avatar } = await got.get(`https://api.weibo.com/2/users/show.json?access_token=${access_token}&uid=${uid}`).json()
+      const { id, name: nickname, avatar_hd: avatar } = await got.get(`https://api.weibo.com/2/users/show.json?access_token=${access_token}&uid=${uid}`).json()
       let [user, isCreate] = await WeiboUser.upsert({ id, nickname, avatar })
-      const token = await jwt.createToken(user.toJSON())
+      const token = await jwt.createToken({ ...user.toJSON(), userType: 'weiboUser' })
       return ctx.success({ nickname, avatar, token })
    }
 

@@ -82,7 +82,14 @@
             </div>
           </el-form>
           <div v-else style="text-align: center">
-            <el-image :src="weiboQrUrl"></el-image>
+            <el-image :src="weiboQrUrl">
+              <div slot="error">
+                <i class="el-icon-loading"></i>
+              </div>
+              <div slot="placeholder">
+                <i class="el-icon-loading"></i>
+              </div>
+            </el-image>
             <div style="margin-top: 10px">
               <a :href="weiboUrl">
                 <el-button type="warning"

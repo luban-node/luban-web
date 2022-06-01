@@ -1,5 +1,6 @@
 import axios from 'axios'
 import store from '../vuex/store'
+import Vue from 'vue'
 
 const instance = axios.create({
   baseURL: process.env.API_BASE_URL,
@@ -21,6 +22,10 @@ instance.interceptors.response.use(res => {
       {
         const { code, msg, data } = res.data
         if (code !== 0) {
+          Vue.prototype.$message({
+            message: msg,
+            type: "error",
+          })
           return Promise.reject(msg)
         }
         return Promise.resolve(data)
@@ -80,14 +85,14 @@ function login(data) {
 
 function logout() {
   return instance({
-    url: 'logout',
+    url: '/logout',
     method: 'POST'
   })
 }
 
 function loginCallback(data) {
   return instance({
-    url: 'loginCallback',
+    url: '/loginCallback',
     method: 'POST',
     data
   })
@@ -102,7 +107,7 @@ function loadWeiboQr() {
 
 function loadWeiboUrl() {
   return instance({
-    url: 'weibo/loginUrl',
+    url: '/weibo/loginUrl',
     method: 'GET'
   })
 }
@@ -115,4 +120,19 @@ function getWeiboLoginQrStatus(data) {
   })
 }
 
-export { qrCreate, dyWm, uploadImage, ocr, register, login, logout, loginCallback, loadWeiboQr, loadWeiboUrl,getWeiboLoginQrStatus }
+function createMessage(data) {
+  return instance({
+    url: '/message/create',
+    method: 'POST',
+    data
+  })
+}
+
+function showMessage() {
+  return instance({
+    url: '/message/show',
+    method: 'GET',
+  })
+}
+
+export { qrCreate, dyWm, uploadImage, ocr, register, login, logout, loginCallback, loadWeiboQr, loadWeiboUrl, getWeiboLoginQrStatus, createMessage, showMessage }

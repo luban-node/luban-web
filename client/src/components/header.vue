@@ -19,6 +19,13 @@
             >
           </li>
           <li class="nav-item">
+            <a
+              :class="this.$route.path.includes('/message') ? 'active' : ''"
+              href="/message"
+              >留言板</a
+            >
+          </li>
+          <li class="nav-item">
             <div class="nav-gap"></div>
           </li>
           <li class="nav-item" v-if="!user">

@@ -1,10 +1,11 @@
 const got = require('got')
-
+const errCode = require('../lib/errCode')
 const PHONE_AGENT = ' Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'
 
 class WaterMarkController {
-  async dy (ctx) {
+  async dy(ctx) {
     const { url } = ctx.request.body
+    if (!url) return ctx.error(errCode.PARAMS_ERROR, '参数错误')
     // 请求抖音链接中的url
     const shortUrl = /https:\/\/\S*/.exec(url)[0]
     const resp = await got.get(shortUrl, { headers: { 'user-agent': PHONE_AGENT } })

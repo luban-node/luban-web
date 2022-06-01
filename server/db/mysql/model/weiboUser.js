@@ -5,7 +5,7 @@ class WeiboUser extends Model {}
 
 WeiboUser.init({
   id:{
-    type:DataTypes.STRING,
+    type:DataTypes.BIGINT,
     primaryKey: true,
   },
   nickname: {

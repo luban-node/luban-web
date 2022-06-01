@@ -21,5 +21,6 @@ module.exports = {
         appSecret: '66221ecc946712b9fb9e5243caddff71',
         redirectUrl: isDev ? 'http://127.0.0.1:8080/login' : 'http://lolmbbs.com/login'
     },
-    noLoginApi: ['/api/qr/create', '/api/wm/dy', '/api/upload/image', '/api/ocr', '/api/register', '/api/login']
+    noLoginApi: ['/api/qr/create', '/api/wm/dy', '/api/upload/image', '/api/ocr', '/api/register',
+        '/api/login', '/api/weibo/loginUrl', '/api/weibo/loginQr', '/api/weibo/loginQrStatus', '/api/loginCallback', '/api/message/show']
 }

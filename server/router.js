@@ -5,6 +5,7 @@ const wmController = require('./controller/wm')
 const uploadController = require('./controller/upload')
 const ocrController = require('./controller/ocr')
 const userController = require('./controller/user')
+const messageController = require('./controller/message')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -35,5 +36,7 @@ router.post('/logout',userController.logout)
 router.get('/weibo/loginUrl',userController.getWeiboLoginUrl)
 router.get('/weibo/loginQr',userController.getWeiboLoginQr)
 router.get('/weibo/loginQrStatus',userController.getWeiboLoginQrStatus)
+router.post('/message/create',messageController.create)
+router.get('/message/show',messageController.show)
 
 module.exports = router

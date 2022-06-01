@@ -15,6 +15,7 @@ module.exports = ()=>{
            }
        }else{
               ctx.error(errCode.UNAUTHORIZATION,'未授权,请先登录')
+              return 
        }
        await next()
     }
