@@ -7,7 +7,10 @@ const sequelize = new Sequelize(mysqlConfig.url, {
     dateStrings: true,
     typeCast: true
   }, timezone: '+08:00',
-  logging: false
+  logging: isDev,
+  retry:{
+    max: 100
+  }
 });
 
 ; (async () => {
