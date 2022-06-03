@@ -1,7 +1,7 @@
 FROM node:14
 MAINTAINER Selenium39
 
-ENV APP_DIR /usr/local/src
+ENV APP_DIR /usr/local/src/luban-web
 
 # debian换源
 RUN sed -i s/deb.debian.org/mirrors.aliyun.com/g /etc/apt/sources.list && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' >/etc/timezone
@@ -20,7 +20,7 @@ RUN npm install \
 WORKDIR ${APP_DIR}/server
 RUN npm install \
     && npm install -g pm2
-EXPOSE 80
+EXPOSE 3000
 CMD ["sh" ,"-c" ,"npm run prod | pm2 logs" ]
 
 
