@@ -28,6 +28,7 @@
     "mysql2": "^2.3.3",
     "qrcode": "^1.5.0",
     "sequelize": "^6.19.2",
+    "sharp": "^0.30.6",
     "tesseract.js": "^2.0.0-beta.1",
     "tesseract.js-core": "^2.0.0-beta.13",
     "uuid": "^8.3.2",

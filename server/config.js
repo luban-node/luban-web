@@ -16,11 +16,15 @@ module.exports = {
         key: 'luban-web-selenium39',
         expire: 60 * 60 * 4
     },
+    baiduConfig:{
+         clientId:'wTVl1MvMI2xeDbcshd6uLqkd',
+         clientSecret:'7E0VOvUQ1dpBqTun9nmopE6dgRHlvVQZ'
+    },
     weiboConfig: {
         appKey: '3359969474',
         appSecret: '66221ecc946712b9fb9e5243caddff71',
         redirectUrl: isDev ? 'http://127.0.0.1:8080/login' : 'http://lolmbbs.com/login'
     },
     noLoginApi: ['/api/qr/create', '/api/wm/dy', '/api/upload/image', '/api/ocr', '/api/register',
-        '/api/login', '/api/weibo/loginUrl', '/api/weibo/loginQr', '/api/weibo/loginQrStatus', '/api/loginCallback', '/api/message/show']
+        '/api/login', '/api/weibo/loginUrl', '/api/weibo/loginQr', '/api/weibo/loginQrStatus', '/api/loginCallback', '/api/message/show','/api/image/bgColor'],
 }
