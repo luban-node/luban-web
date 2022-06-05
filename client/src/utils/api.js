@@ -135,4 +135,12 @@ function showMessage() {
   })
 }
 
-export { qrCreate, dyWm, uploadImage, ocr, register, login, logout, loginCallback, loadWeiboQr, loadWeiboUrl, getWeiboLoginQrStatus, createMessage, showMessage }
+function bgColor(data) {
+  return instance({
+    url: '/image/bgColor',
+    method: 'POST',
+    data
+  })
+}
+
+export { qrCreate, dyWm, uploadImage, ocr, register, login, logout, loginCallback, loadWeiboQr, loadWeiboUrl, getWeiboLoginQrStatus, createMessage, showMessage, bgColor }

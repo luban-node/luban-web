@@ -3,8 +3,8 @@
     <Header />
     <div class="main-cnt">
       <router-view />
+      <Footer />
     </div>
-    <Footer />
   </div>
 </template>
 

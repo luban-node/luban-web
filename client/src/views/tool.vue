@@ -16,6 +16,9 @@
             <li class="nav-item">
               <a href="/tool/ocr">文字识别(OCR)</a>
             </li>
+            <li class="nav-item">
+              <a href="/tool/bgcolor">证件照换底色</a>
+            </li>
           </ul>
         </div>
         <div class="page-component__content">

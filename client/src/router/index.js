@@ -28,6 +28,10 @@ export default new Router({
             name: 'ocr',
             path: 'ocr',
             component: () => import('../views/ocr')
+          }, {
+            name: 'bgcolor',
+            path: 'bgcolor',
+            component: () => import('../views/bgcolor')
           }]
         }, {
           name: 'login',
